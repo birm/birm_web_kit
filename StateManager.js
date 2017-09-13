@@ -1,7 +1,9 @@
+/* StateManager
+ * @constructor
+ * @param prefix - the prefix for the state url component (i.e. ?{prefix}=abc)
+ */
 class StateManager {
-    /* StateManager
-     * @param prefix - the prefix for the state url component (i.e. ?{prefix}=abc)
-     */
+
     // TODO more sensible method names
     constructor(prefix) {
         this.prefix = prefix;

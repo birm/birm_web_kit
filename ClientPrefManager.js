@@ -1,3 +1,6 @@
+/* ClientPrefManager
+ * @param schema - the name of the schema to use
+ */
 class ClientPrefManager {
     constructor(schema) {
         this.schema = schema;
