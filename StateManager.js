@@ -80,6 +80,21 @@ class StateManager {
             }
         }
     }
+    
+    to_storage(key){
+        /* copy state from url component to local storage 
+         * @param key - the key to store under localstorage
+         */
+        localStorage.setItem(key, this.get_url_state());
+    }
+    
+    from_storage(key){
+       /* copy state from local storage to url component
+         * @param key - the key to retrieve under localstorage
+         */
+        return localStorage.getItem(key);
+    }
+    
 
 
 }
