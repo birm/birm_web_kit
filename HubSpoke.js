@@ -1,27 +1,39 @@
 /* Spoke
  * @constructor
- * @param parent - the parent's hash
+ * @param hub_id - the hub's hash, and this item's base hash
  * @param id - identifier for the spoke given the parent
+ * @param callback - what to do with new information
  */
 class Spoke {
-    // TODO more sensible method names
-    constructor(parent, id) {
-      this.parent = parent
+    constructor(hub_id, id, callback) {
+      this.hub_id = hub_id
       this.id = id;
-
+      this.callback = callback;
+      let self = this;
+      window.addEventListener('storage', function(e){
+        // TODO if it's the hub, listen!
+      });
     }
-    // TODO this needs a way to communicate
-    // TODO this needs to listen to its parent
+    set(value){
+      /* set this spoke's state */
+      window.localStorage.setItem(this.key, value);
+    }
+    get(){
+      /* get parent state */
+      return window.localStorage.getItem(this.hub_id);
+    }
+
 }
 
 /* Hub
  * @constructor
- * @param prefix - the prefix for the state url component (i.e. ?{prefix}=abc)
+  * @param callback - what to do with new information
  */
 class Hub {
     // TODO more sensible method names
-    constructor() {
+    constructor(callback) {
       this.spokes = [];
+      this.callback = callback;
       // INSECURE HASH FUNCTION to avoid collision
       var dt = new Date().toString(),
           hash = 0;
@@ -32,17 +44,26 @@ class Hub {
           hash = Math.abs(hash);
       }
       this.hash = hash;
+      window.addEventListener('storage', function(e){
+        // TODO if it's a spoke, listen!
+      });
 
     }
 
-    add_spoke(id){
+    register_spoke(id){
       /* Add a Spoke
        *@param id - the id to use for the spoke
        */
-       let newspoke = new Spoke(this.hash, this.id);
+       let newspoke = this.hash + "-" + id;
        this.spokes.push(newspoke);
        // TODO add listen to this new spoke
     }
-    // TODO this needs a way to communicate
-    // TODO this needs to listen to a spoke
+    set(value){
+      /* set this hub's state */
+      window.localStorage.setItem(this.hash, value);
+    }
+    // TODO this needs to listen to its spokes
+    listen(callback){
+      // TODO set up listen callback event
+    }
 }
