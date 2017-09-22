@@ -7,22 +7,27 @@
 class Spoke {
     constructor(hub_id, id, callback) {
         this.hub_id = hub_id
-        this.id = id;
+        this.id = hub_id + "-" + id;
         this.callback = callback;
-        var self = this;
-        // listen to the hub
-        window.addEventListener('storage', function(e) {
-            if (e.key == self.hub_id) {
-                callback(e.newValue);
-            }
-        });
+        this._state = "";
     }
-    set(value) {
+
+    cats(event){
+      // TODO why is {this} a window
+      console.log(this);
+      if (event.key == this.hub_id) {
+          this._state = event.newValue;
+      }
+    }
+
+    set state (value) {
         /* set this spoke's state */
-        window.localStorage.setItem(this.key, value);
+        this._state = value;
+        window.localStorage.setItem(this.id, value);
     }
-    get() {
+    get state() {
         /* get parent state */
+        // the last hub state is the state we need alyways
         return window.localStorage.getItem(this.hub_id);
     }
 
@@ -35,6 +40,7 @@ class Spoke {
 class Hub {
     constructor(callback) {
         this.spokes = [];
+        this._state = "";
         this.callback = callback;
         // INSECURE HASH FUNCTION to avoid collision
         var dt = new Date().toString(),
@@ -45,29 +51,32 @@ class Hub {
             hash = hash & hash; // Convert to 32bit integer
             hash = Math.abs(hash);
         }
-        this.hash = hash;
-        var self = this;
-        // listen to any of the spokes
-        window.addEventListener('storage', function(e) {
-            if (e.key in self.spokes) {
-                callback(e.newValue);
-            }
-        });
-
+        this.id = hash;
     }
 
+    cats(event){
+      // TODO why is {this} a window
+      console.log(this);
+      if (this.spokes.includes(event.key)) {
+          this._state = event.newValue;
+      }
+    }
 
     register_spoke(id) {
         /* Add a Spoke
          *@param id - the id to use for the spoke
          */
-        let newspoke = this.hash + "-" + id;
-        this.spokes.push(newspoke);
-        // TODO add listen to this new spoke
+        this.spokes.push(id);
     }
-    set(value) {
+    set state(value) {
         /* set this hub's state */
-        window.localStorage.setItem(this.hash, value);
+        this._state = value;
+        window.localStorage.setItem(this.id, value);
+    }
+    get state(){
+      // TODO update this._state with new registerable events
+      // the state is the last updated of all states
+      return this._state;
     }
 
 }
