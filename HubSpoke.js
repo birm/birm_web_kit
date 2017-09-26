@@ -32,7 +32,6 @@ class Spoke {
 
 /* Hub - communicate state information with spokes using (this).state = {Value}
  * @constructor
- * @param callback - what to do with new information
  */
 class Hub {
     constructor() {
