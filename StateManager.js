@@ -55,7 +55,7 @@ class StateManager {
         p_var[this.prefix] = state_string;
         // put paramater string back together, as modified
         var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
-        window.history.pushState("hi", "Encoded", "?" + params);
+        window.history.replaceState("{}", "document.title", "?" + params);
     }
 
     get_url_state() {
@@ -71,6 +71,19 @@ class StateManager {
         return p_var[this.prefix];
     }
 
+    clear_url() {
+        /* remove this param from the url
+        */
+        var previous = location.search.substring(1);
+        var p_var = previous ? JSON.parse('{"' + previous.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+            function(key, value) {
+                return key === "" ? value : decodeURIComponent(value)
+            }) : {}
+        // pull out our state value
+        delete p_var['a'];
+        var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
+        window.history.replaceState({}, document.title, 
+    }
 
     initialize(state) {
       /* run all set functions based on the url and registry */
