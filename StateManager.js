@@ -55,7 +55,7 @@ class StateManager {
         p_var[this.prefix] = state_string;
         // put paramater string back together, as modified
         var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
-        window.history.replaceState({}, document.title,location.pathname + "?" params);
+        window.history.replaceState({}, document.title,location.pathname + "?" + params);
     }
 
     get_url_state() {
@@ -82,7 +82,7 @@ class StateManager {
         // pull out our state value
         delete p_var[this.prefix];
         var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
-        window.history.replaceState({}, document.title,location.pathname + "?" params);
+        window.history.replaceState({}, document.title,location.pathname + "?" + params);
     }
 
     initialize(state) {
