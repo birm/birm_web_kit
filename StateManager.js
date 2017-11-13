@@ -8,7 +8,7 @@ class StateManager {
     constructor(prefix) {
         this.prefix = prefix;
         this.vals = {};
-        this.getters = {};
+        this.setters = {};
     }
 
     /* Add a key to the state variable */
@@ -19,7 +19,7 @@ class StateManager {
          * then use (this).vals['key'] to set key values
          * run (this).set_url();  to update the url with all set key values
          */
-        this.getters[name] = callback;
+        this.setters[name] = callback;
     }
 
     encode(state_object) {
@@ -88,8 +88,8 @@ class StateManager {
     initialize(state) {
         /* run all set functions based on the url and registry */
         for (var i in state) {
-            if (i in this.getters) {
-                this.getters[i](state[i]);
+            if (i in this.setters) {
+                this.setters[i](state[i]);
             }
         }
     }
