@@ -11,13 +11,13 @@ class Spoke {
         window.addEventListener('storage', (e) => this.listen(e));
     }
 
-    listen(event){
-      if (event.key == this.hub_id){
-        this._state = event.newValue;
-      }
+    listen(event) {
+        if (event.key == this.hub_id) {
+            this._state = event.newValue;
+        }
     }
 
-    set state (value) {
+    set state(value) {
         /* set this hub's state and update hub */
         this._state = value;
         window.localStorage.setItem(this.id, value);
@@ -50,10 +50,10 @@ class Hub {
     }
 
     // TODO confirm it won't self trigger. I think storage doesn't apply in window
-    listen(event){
-      if (event.key.split("-")[0] == this.id){
-        this._state = event.newValue;
-      }
+    listen(event) {
+        if (event.key.split("-")[0] == this.id) {
+            this._state = event.newValue;
+        }
     }
 
     set state(value) {
@@ -61,9 +61,9 @@ class Hub {
         this._state = value;
         window.localStorage.setItem(this.id, value);
     }
-    get state(){
-      // the state is the last updated of all states
-      return this._state;
+    get state() {
+        // the state is the last updated of all states
+        return this._state;
     }
 
 }

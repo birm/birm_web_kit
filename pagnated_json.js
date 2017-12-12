@@ -19,5 +19,5 @@ pagnated_json = function(url_generator, callback, finalizer) {
         } catch (e) {
             console.log(e);
         }
-        // if the url geneator is done, or response is empty, terminate
+        // if the url generator is done, or response is empty, terminate
     }

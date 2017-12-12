@@ -55,7 +55,7 @@ class StateManager {
         p_var[this.prefix] = state_string;
         // put paramater string back together, as modified
         var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
-        window.history.replaceState({}, document.title,location.pathname + "?" + params);
+        window.history.replaceState({}, document.title, location.pathname + "?" + params);
     }
 
     get_url_state() {
@@ -82,7 +82,7 @@ class StateManager {
         // pull out our state value
         delete p_var[this.prefix];
         var params = Object.keys(p_var).map((i) => i + '=' + p_var[i]).join('&');
-        window.history.replaceState({}, document.title,location.pathname + "?" + params);
+        window.history.replaceState({}, document.title, location.pathname + "?" + params);
     }
 
     initialize(state) {
@@ -95,7 +95,7 @@ class StateManager {
     }
 
     to_storage(key) {
-        /* copy state from url component to local storage 
+        /* copy state from url component to local storage
          * @param key - the key to store under localstorage
          */
         localStorage.setItem(key, this.get_url_state());

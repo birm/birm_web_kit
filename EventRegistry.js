@@ -1,6 +1,3 @@
-// TODO what key event properties can I take for granted
-
-// init
 var EventReg = {};
 // on a key press, do the callbacks for that key
 object.addEventListener("keypress",function(e){
@@ -15,3 +12,5 @@ object.addEventListener("keypress",function(e){
     }
   }
 });
+
+// TO USE : Assign a list or function to the key within the registry.
