@@ -34,6 +34,7 @@ class SessionTracker{
 }
 
 /*
+Usage example:
 var st = new SessionTracker("myApp");
 st.store(); // initial authorization tracked.
 // check minutely and renew by 10 minutes
