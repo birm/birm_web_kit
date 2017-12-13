@@ -1,4 +1,5 @@
 // SESSION TRACKING
+// This tool is intended to keep a session active, so it tracks some session variables.
 
 class SessionTracker{
   constructor(name){
@@ -10,6 +11,12 @@ class SessionTracker{
     window.localStorage.setItem(this.name + "-lastauth", now);
   }
   start(interval, timeout, renewFcn){
+    /**
+    * @param {Integer} interval - how often, in ms, to check the session
+    * @param {Integer} timeout - how long, in ms, the session takes to expire. Estimate low.
+    * @param {function} renewFcn - the function to call when the session expires
+    * NOTE that renewFcn is called two intevals before the timeout
+    */
     // TODO doc that interval and timeout are in ms
     var a = function(){
       var lastauth = window.localStorage.getItem(this.name + "-lastauth");
