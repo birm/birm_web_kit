@@ -21,10 +21,13 @@ class SessionTracker{
     var a = function(){
       var lastauth = window.localStorage.getItem(this.name + "-lastauth");
       var now = Date.now();
-      if (now - lastauth >= timeout - (2*interval)){
+      if (lastauth && (now - lastauth >= timeout - (2*interval))){
         // TODO maybe make an event object to pass to renew fcn?
         renewFcn();
         this.store();
+      }
+      if (!lastauth){
+        console.error("initial time never stored; session not being renewed automatically");
       }
     }
     var b = a.bind(this);
