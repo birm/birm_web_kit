@@ -42,7 +42,7 @@ function cloner(clones){
         // call the function with args to all contexts
         return function (...args){
           var ret = clones[0][name](...args);
-          clones.splice(1).forEach((x) => (x[name](...args)));
+          clones.slice(1).forEach((x) => (x[name](...args)));
           // return whatever base returns
           return ret;
         }
