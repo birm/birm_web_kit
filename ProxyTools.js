@@ -9,7 +9,10 @@ function delayer(base){
         new_base[instruction[1]] = instruction[2];
       }
       else if (instruction[0]==="fcn"){
-        new_base[instruction[1]](...instruction[2]);
+        var nb_fcn = new_base[instruction[1]];
+        if (typeof nb_fcn === "function"){
+          nb_fcn(...instruction[2]);
+        }
       }
     })
   }
@@ -34,7 +37,7 @@ function delayer(base){
   return new Proxy(base, handler);
 }
 
-// call cloner with a list of items to clone (same type preferably)
+// call cloner with base and a list of items to clone (same type preferably) of the same type
 function cloner(clones){
   var handler = {
      get(target, name, reciever){
