@@ -22,7 +22,7 @@ function promiseChunkFileReader(file, part){
 }
 
 // read chunks one at a time
-async function readFileChunks(file, token){
+async function readFileChunks(file){
   var part = 0;
   var complete = false;
   while (!complete){
